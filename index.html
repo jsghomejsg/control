@@ -3,52 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Piscina Pro</title>
+    <title>Registro Profesional de Piscinas</title>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
-        body { font-family: sans-serif; background: #f0f4f8; padding: 20px; color: #333; margin: 0; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; margin: 20px auto; }
-        h2 { color: #007bff; text-align: center; margin-top: 0; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
-        #signature-pad { border: 1px solid #ccc; background: #fff; width: 100%; height: 150px; border-radius: 8px; margin-top: 10px; touch-action: none; }
-        button { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 20px; cursor: pointer; }
-        button:active { background: #218838; }
-        .clear-btn { background: #6c757d; font-size: 14px; padding: 8px; margin-top: 5px; width: auto; display: block; }
+        :root { --primary: #0056b3; --success: #28a745; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); margin: 0; padding: 10px; }
+        .header { background: var(--primary); color: white; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; margin: -10px -10px 20px -10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 450px; margin: auto; }
+        h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .finca-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; margin-top: 10px; font-weight: bold; }
+        
+        label { display: block; margin-top: 15px; font-weight: 600; color: #444; font-size: 0.9rem; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; font-size: 16px; transition: 0.3s; }
+        input:focus { border-color: var(--primary); outline: none; }
+        
+        .sig-container { border: 2px solid #eee; background: #fff; width: 100%; height: 160px; border-radius: 10px; margin-top: 10px; touch-action: none; position: relative; }
+        #signature-pad { width: 100%; height: 100%; border-radius: 10px; }
+        
+        .btn-submit { width: 100%; padding: 16px; background: var(--success); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; margin-top: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
+        .btn-clear { background: #e9ecef; color: #666; font-size: 12px; padding: 6px 12px; border: none; border-radius: 5px; margin-top: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
+<div class="header">
+    <h2>Control Técnico</h2>
+    <div id="finca-display" class="finca-badge">Cargando...</div>
+</div>
+
 <div class="card">
-    <h2 id="titulo">Cargando finca...</h2>
     <form id="piscinaForm">
-        <label>Nivel de pH (6.5 - 8.5)</label>
-        <input type="number" step="0.1" id="ph" required placeholder="Ej: 7.2">
+        <label>Nombre del Técnico / Operario</label>
+        <input type="text" id="operario" required placeholder="Tu nombre completo">
 
-        <label>Cloro Libre (mg/L)</label>
-        <input type="number" step="0.1" id="cloro" required placeholder="Ej: 1.5">
+        <div style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label>pH (6.5-8.5)</label>
+                <input type="number" step="0.1" id="ph" required placeholder="7.2">
+            </div>
+            <div style="flex: 1;">
+                <label>Cloro (mg/L)</label>
+                <input type="number" step="0.1" id="cloro" required placeholder="1.5">
+            </div>
+        </div>
 
-        <label>Temperatura (ºC)</label>
+        <label>Temperatura del Agua (ºC)</label>
         <input type="number" id="temp" required placeholder="Ej: 24">
 
-        <label>¿Agua transparente?</label>
+        <label>Estado Visual del Agua</label>
         <select id="claridad">
-            <option value="Si">Sí</option>
-            <option value="No">No (Incidencia)</option>
+            <option value="Cristalina">Cristalina ✅</option>
+            <option value="Turbia">Turbia ⚠️</option>
+            <option value="Algas">Presencia de Algas ❌</option>
         </select>
 
-        <label>Firma del Técnico</label>
-        <canvas id="signature-pad"></canvas>
-        <button type="button" class="clear-btn" onclick="signaturePad.clear()">Borrar Firma</button>
+        <label>Firma de Conformidad</label>
+        <div class="sig-container">
+            <canvas id="signature-pad"></canvas>
+        </div>
+        <button type="button" class="btn-clear" onclick="signaturePad.clear()">Borrar firma</button>
 
-        <button type="submit" id="btnEnviar">ENVIAR REGISTRO</button>
+        <button type="submit" id="btnEnviar" class="btn-submit">GUARDAR REGISTRO</button>
     </form>
 </div>
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const fincaId = urlParams.get('id') || "Desconocida";
-    document.getElementById('titulo').innerText = "Finca: " + fincaId.replace(/_/g, ' ');
+    const fincaId = urlParams.get('id') || "General / Sin Nombre";
+    document.getElementById('finca-display').innerText = fincaId.replace(/_/g, ' ');
 
     const canvas = document.getElementById('signature-pad');
     const signaturePad = new SignaturePad(canvas);
@@ -65,14 +87,15 @@
 
     document.getElementById('piscinaForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (signaturePad.isEmpty()) return alert("Por favor, firma antes de enviar.");
+        if (signaturePad.isEmpty()) return alert("La firma es obligatoria.");
 
         const btn = document.getElementById('btnEnviar');
-        btn.innerText = "Enviando...";
+        btn.innerText = "Sincronizando...";
         btn.disabled = true;
 
         const data = {
             fincaId: fincaId,
+            operario: document.getElementById('operario').value,
             ph: document.getElementById('ph').value,
             cloro: document.getElementById('cloro').value,
             temp: document.getElementById('temp').value,
@@ -81,6 +104,7 @@
         };
 
         try {
+            // TU URL DE GOOGLE SCRIPT
             const G_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVX_KWQFXHBq3DwQodbbU6q_7RB30lmiAXfl04qKTVpGuinzS9hKqTG6R7VuCbw0UG/exec"; 
             
             await fetch(G_SCRIPT_URL, {
@@ -89,12 +113,12 @@
                 body: JSON.stringify(data)
             });
 
-            alert("✅ Registro enviado correctamente.");
+            alert("✅ Registro guardado con éxito.");
             location.reload();
         } catch (error) {
-            alert("Error al enviar. Reinténtalo.");
+            alert("Error de conexión. Inténtalo de nuevo.");
             btn.disabled = false;
-            btn.innerText = "ENVIAR REGISTRO";
+            btn.innerText = "GUARDAR REGISTRO";
         }
     });
 </script>
