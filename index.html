@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Piscina Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #f0f4f8; padding: 20px; color: #333; margin: 0; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; margin: 20px auto; }
+        h2 { color: #007bff; text-align: center; margin-top: 0; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        #signature-pad { border: 1px solid #ccc; background: #fff; width: 100%; height: 150px; border-radius: 8px; margin-top: 10px; touch-action: none; }
+        button { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        button:active { background: #218838; }
+        .clear-btn { background: #6c757d; font-size: 14px; padding: 8px; margin-top: 5px; width: auto; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="titulo">Cargando finca...</h2>
+    <form id="piscinaForm">
+        <label>Nivel de pH (6.5 - 8.5)</label>
+        <input type="number" step="0.1" id="ph" required placeholder="Ej: 7.2">
+
+        <label>Cloro Libre (mg/L)</label>
+        <input type="number" step="0.1" id="cloro" required placeholder="Ej: 1.5">
+
+        <label>Temperatura (ºC)</label>
+        <input type="number" id="temp" required placeholder="Ej: 24">
+
+        <label>¿Agua transparente?</label>
+        <select id="claridad">
+            <option value="Si">Sí</option>
+            <option value="No">No (Incidencia)</option>
+        </select>
+
+        <label>Firma del Técnico</label>
+        <canvas id="signature-pad"></canvas>
+        <button type="button" class="clear-btn" onclick="signaturePad.clear()">Borrar Firma</button>
+
+        <button type="submit" id="btnEnviar">ENVIAR REGISTRO</button>
+    </form>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const fincaId = urlParams.get('id') || "Desconocida";
+    document.getElementById('titulo').innerText = "Finca: " + fincaId.replace(/_/g, ' ');
+
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas);
+
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear();
+    }
+    window.onresize = resizeCanvas;
+    resizeCanvas();
+
+    document.getElementById('piscinaForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (signaturePad.isEmpty()) return alert("Por favor, firma antes de enviar.");
+
+        const btn = document.getElementById('btnEnviar');
+        btn.innerText = "Enviando...";
+        btn.disabled = true;
+
+        const data = {
+            fincaId: fincaId,
+            ph: document.getElementById('ph').value,
+            cloro: document.getElementById('cloro').value,
+            temp: document.getElementById('temp').value,
+            claridad: document.getElementById('claridad').value,
+            firma: signaturePad.toDataURL()
+        };
+
+        try {
+            const G_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVX_KWQFXHBq3DwQodbbU6q_7RB30lmiAXfl04qKTVpGuinzS9hKqTG6R7VuCbw0UG/exec"; 
+            
+            await fetch(G_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(data)
+            });
+
+            alert("✅ Registro enviado correctamente.");
+            location.reload();
+        } catch (error) {
+            alert("Error al enviar. Reinténtalo.");
+            btn.disabled = false;
+            btn.innerText = "ENVIAR REGISTRO";
+        }
+    });
+</script>
+
+</body>
+</html>
