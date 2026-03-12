@@ -3,42 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Profesional de Piscinas</title>
+    <title>Pool Control Premium</title>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
-        :root { --primary: #0056b3; --success: #28a745; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); margin: 0; padding: 10px; }
-        .header { background: var(--primary); color: white; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; margin: -10px -10px 20px -10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 450px; margin: auto; }
-        h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
-        .finca-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; margin-top: 10px; font-weight: bold; }
-        
-        label { display: block; margin-top: 15px; font-weight: 600; color: #444; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; font-size: 16px; transition: 0.3s; }
-        input:focus { border-color: var(--primary); outline: none; }
-        
-        .sig-container { border: 2px solid #eee; background: #fff; width: 100%; height: 160px; border-radius: 10px; margin-top: 10px; touch-action: none; position: relative; }
-        #signature-pad { width: 100%; height: 100%; border-radius: 10px; }
-        
-        .btn-submit { width: 100%; padding: 16px; background: var(--success); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; margin-top: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
-        .btn-clear { background: #e9ecef; color: #666; font-size: 12px; padding: 6px 12px; border: none; border-radius: 5px; margin-top: 5px; cursor: pointer; }
+        :root {
+            --bg-dark: #121212;
+            --card-bg: #1e1e1e;
+            --accent: #d4af37; /* Dorado Premium */
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --input-bg: #2c2c2c;
+            --success: #28a745;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background-color: var(--bg-dark); 
+            color: var(--text-main);
+            margin: 0; 
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            width: 100%;
+            padding: 40px 0 20px 0;
+            text-align: center;
+            background: linear-gradient(180deg, #1a1a1a 0%, var(--bg-dark) 100%);
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        #finca-display {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+            max-width: 400px; 
+            width: 90%;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        label { 
+            display: block; 
+            margin-top: 20px; 
+            font-size: 0.8rem;
+            font-weight: 600; 
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        input, select { 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 8px; 
+            border: 1px solid #3d3d3d; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+            background: var(--input-bg);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 8px rgba(212, 175, 55, 0.2); }
+
+        .sig-wrapper {
+            margin-top: 15px;
+            background: #fff; /* La firma mejor sobre blanco para el PDF */
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        #signature-pad { 
+            width: 100%; 
+            height: 180px; 
+            cursor: crosshair;
+        }
+
+        .btn-submit { 
+            width: 100%; 
+            padding: 18px; 
+            background: var(--accent); 
+            color: #000; 
+            border: none; 
+            border-radius: 14px; 
+            font-size: 16px; 
+            font-weight: 800; 
+            margin-top: 30px; 
+            cursor: pointer; 
+            text-transform: uppercase;
+            transition: transform 0.2s;
+        }
+
+        .btn-submit:active { transform: scale(0.98); }
+
+        .btn-clear { 
+            background: transparent; 
+            color: var(--text-dim); 
+            font-size: 11px; 
+            border: none; 
+            margin-top: 8px; 
+            cursor: pointer;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>Control Técnico</h2>
-    <div id="finca-display" class="finca-badge">Cargando...</div>
+    <h1>Pool Control Pro</h1>
+    <div id="finca-display">Identificando instalación...</div>
 </div>
 
 <div class="card">
     <form id="piscinaForm">
-        <label>Nombre del Técnico / Operario</label>
-        <input type="text" id="operario" required placeholder="Tu nombre completo">
+        <label>Técnico Responsable</label>
+        <input type="text" id="operario" required placeholder="Nombre y apellidos">
 
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; gap: 15px;">
             <div style="flex: 1;">
-                <label>pH (6.5-8.5)</label>
+                <label>pH</label>
                 <input type="number" step="0.1" id="ph" required placeholder="7.2">
             </div>
             <div style="flex: 1;">
@@ -47,33 +147,36 @@
             </div>
         </div>
 
-        <label>Temperatura del Agua (ºC)</label>
-        <input type="number" id="temp" required placeholder="Ej: 24">
+        <label>Temperatura Agua (ºC)</label>
+        <input type="number" id="temp" required placeholder="24">
 
-        <label>Estado Visual del Agua</label>
+        <label>Estado del Agua</label>
         <select id="claridad">
-            <option value="Cristalina">Cristalina ✅</option>
-            <option value="Turbia">Turbia ⚠️</option>
-            <option value="Algas">Presencia de Algas ❌</option>
+            <option value="Cristalina">Cristalina</option>
+            <option value="Ligeramente Turbia">Ligeramente Turbia</option>
+            <option value="Turbia">Turbia</option>
+            <option value="Muy Turbia">Muy Turbia</option>
         </select>
 
-        <label>Firma de Conformidad</label>
-        <div class="sig-container">
+        <label>Firma del Técnico</label>
+        <div class="sig-wrapper">
             <canvas id="signature-pad"></canvas>
         </div>
-        <button type="button" class="btn-clear" onclick="signaturePad.clear()">Borrar firma</button>
+        <button type="button" class="btn-clear" onclick="signaturePad.clear()">Limpiar firma</button>
 
-        <button type="submit" id="btnEnviar" class="btn-submit">GUARDAR REGISTRO</button>
+        <button type="submit" id="btnEnviar" class="btn-submit">ENVIAR REPORTE</button>
     </form>
 </div>
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const fincaId = urlParams.get('id') || "General / Sin Nombre";
-    document.getElementById('finca-display').innerText = fincaId.replace(/_/g, ' ');
+    const fincaId = urlParams.get('id') || "General";
+    document.getElementById('finca-display').innerText = "📍 " + fincaId.replace(/_/g, ' ');
 
     const canvas = document.getElementById('signature-pad');
-    const signaturePad = new SignaturePad(canvas);
+    const signaturePad = new SignaturePad(canvas, {
+        penColor: 'rgb(0, 0, 0)'
+    });
 
     function resizeCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
@@ -87,10 +190,10 @@
 
     document.getElementById('piscinaForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (signaturePad.isEmpty()) return alert("La firma es obligatoria.");
+        if (signaturePad.isEmpty()) return alert("La firma es obligatoria para validar el reporte.");
 
         const btn = document.getElementById('btnEnviar');
-        btn.innerText = "Sincronizando...";
+        btn.innerText = "ENVIANDO...";
         btn.disabled = true;
 
         const data = {
@@ -104,8 +207,7 @@
         };
 
         try {
-            // TU URL DE GOOGLE SCRIPT
-            const G_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVX_KWQFXHBq3DwQodbbU6q_7RB30lmiAXfl04qKTVpGuinzS9hKqTG6R7VuCbw0UG/exec"; 
+            const G_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyH8w85k9G4iwk9yQSXT5l4vw04FZF96OYdfARnI0FOIQPfE1q9tSV1j2W2tOQ-C9ws/exec"; 
             
             await fetch(G_SCRIPT_URL, {
                 method: 'POST',
@@ -113,12 +215,12 @@
                 body: JSON.stringify(data)
             });
 
-            alert("✅ Registro guardado con éxito.");
+            alert("✅ Reporte enviado y PDF generado.");
             location.reload();
         } catch (error) {
-            alert("Error de conexión. Inténtalo de nuevo.");
+            alert("Error de envío. Verifica tu conexión.");
             btn.disabled = false;
-            btn.innerText = "GUARDAR REGISTRO";
+            btn.innerText = "ENVIAR REPORTE";
         }
     });
 </script>
