@@ -3,48 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Piscina</title>
+    <title>Piscina Pro - Control Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkNvbnRyb2wgZGUgUGlzY2luYXMiLAogICJzaG9ydF9uYW1lIjogIlBpc2NpbmFQcm8iLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBkMTExNyIsCiAgInRoZW1lX2NvbG9yIjogIiMxMGI5ODEiCn0=">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0d1117; color: #e6edf3; }
+        .glass { background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-premium { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); transition: all 0.3s ease; }
+        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px #10b981; }
+        canvas { touch-action: none; background-color: #f8fafc; }
+    </style>
 </head>
-<body class="bg-gray-100 p-4">
-    <div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow-lg">
-        <h1 class="text-2xl font-bold text-blue-600 mb-4 text-center">Control Diario</h1>
-        
-        <form id="piscinaForm" class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium">Código de Finca (Token):</label>
-                <input type="text" id="fincaId" required class="w-full border p-2 rounded">
-            </div>
+<body class="p-4 min-h-screen flex flex-col items-center">
 
+    <button id="installBtn" class="hidden mb-6 px-4 py-2 bg-gray-800 text-emerald-400 border border-emerald-500/30 rounded-full text-sm font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        INSTALAR APP EN MÓVIL
+    </button>
+
+    <div class="max-w-md w-full glass p-8 rounded-3xl shadow-2xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-800 tracking-tighter text-white">POOL<span class="text-emerald-500">CONTROL</span></h1>
+            <p class="text-gray-400 text-xs mt-1 uppercase tracking-widest font-semibold">Registro Técnico Profesional</p>
+        </header>
+        
+        <form id="piscinaForm" class="space-y-5">
             <div>
-                <label class="block text-sm font-medium">Técnico:</label>
-                <input type="text" id="operario" required class="w-full border p-2 rounded">
+                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Código de Identificación (Token)</label>
+                <input type="text" id="fincaId" required class="w-full bg-gray-900/50 border border-gray-700 p-3 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-white shadow-inner" placeholder="PiscinaID">
             </div>
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium">pH:</label>
-                    <input type="number" step="0.1" id="ph" required class="w-full border p-2 rounded">
+                    <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">pH (Nivel)</label>
+                    <input type="number" step="0.1" id="ph" required class="w-full bg-gray-900/50 border border-gray-700 p-3 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-white" placeholder="7.2">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium">Cloro (mg/L):</label>
-                    <input type="number" step="0.1" id="cloro" required class="w-full border p-2 rounded">
+                    <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Cloro (mg/L)</label>
+                    <input type="number" step="0.1" id="cloro" required class="w-full bg-gray-900/50 border border-gray-700 p-3 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-white" placeholder="1.5">
                 </div>
             </div>
 
             <div>
-                <label class="block text-sm font-medium">Foto del Agua:</label>
-                <input type="file" id="foto" accept="image/*" capture="camera" required class="w-full">
+                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Estado de Claridad del Agua</label>
+                <select id="claridad" class="w-full bg-gray-900/50 border border-gray-700 p-3 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none text-white appearance-none cursor-pointer">
+                    <option value="Cristalina / Transparente">💎 Cristalina / Transparente</option>
+                    <option value="Ligeramente Turbia">☁️ Ligeramente Turbia</option>
+                    <option value="Turbia / Opaca">🌑 Turbia / Opaca</option>
+                    <option value="Muy Turbia / Algas">🌿 Muy Turbia (Aviso Urgente)</option>
+                </select>
             </div>
 
             <div>
-                <label class="block text-sm font-medium">Firma del Técnico:</label>
-                <canvas id="canvasFirma" class="border w-full h-32 bg-gray-50 rounded"></canvas>
-                <button type="button" onclick="limpiarFirma()" class="text-xs text-red-500 underline">Borrar firma</button>
+                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Operario Responsable</label>
+                <input type="text" id="operario" required class="w-full bg-gray-900/50 border border-gray-700 p-3 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none text-white" placeholder="Nombre completo">
             </div>
 
-            <button type="submit" id="btnEnviar" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold">
-                ENVIAR REPORTE
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Evidencia Fotográfica</label>
+                <input type="file" id="foto" accept="image/*" capture="camera" required class="text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-gray-800 file:text-emerald-400 hover:file:bg-gray-700 cursor-pointer">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase text-center">Firma Digital</label>
+                <div class="bg-white rounded-2xl overflow-hidden p-1">
+                    <canvas id="canvasFirma" class="w-full h-32"></canvas>
+                </div>
+                <button type="button" onclick="limpiarFirma()" class="w-full text-[10px] text-gray-500 mt-2 uppercase tracking-tighter">Limpiar Firma</button>
+            </div>
+
+            <button type="submit" id="btnEnviar" class="w-full btn-premium py-4 rounded-2xl font-bold text-white shadow-xl flex justify-center items-center">
+                FINALIZAR Y ENVIAR PARTE
             </button>
         </form>
     </div>
@@ -54,27 +86,59 @@
         const ctx = canvas.getContext('2d');
         let dibujando = false;
 
-        // Lógica simple de firma
-        canvas.addEventListener('mousedown', () => dibujando = true);
-        canvas.addEventListener('mouseup', () => dibujando = false);
-        canvas.addEventListener('mousemove', (e) => {
-            if (!dibujando) return;
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(e.offsetX, e.offsetY);
+        // Ajustar resolución del canvas
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+
+        function obtenerCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        const iniciarDibuja = (e) => { dibujando = true; ctx.beginPath(); const {x, y} = obtenerCoords(e); ctx.moveTo(x, y); };
+        const dibujar = (e) => { if(!dibujando) return; const {x, y} = obtenerCoords(e); ctx.lineTo(x, y); ctx.stroke(); };
+        const pararDibuja = () => { dibujando = false; };
+
+        canvas.addEventListener('mousedown', iniciarDibuja);
+        canvas.addEventListener('mousemove', dibujar);
+        window.addEventListener('mouseup', pararDibuja);
+        canvas.addEventListener('touchstart', iniciarDibuja);
+        canvas.addEventListener('touchmove', dibujar);
+        canvas.addEventListener('touchend', pararDibuja);
+
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#000';
+
+        function limpiarFirma() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        // Lógica de Instalación (PWA)
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.remove('hidden');
         });
 
-        function limpiarFirma() { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.beginPath(); }
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') installBtn.classList.add('hidden');
+                deferredPrompt = null;
+            }
+        });
 
-        // Envío de datos
+        // Envío de Datos a tu URL
         document.getElementById('piscinaForm').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnEnviar');
             btn.disabled = true;
-            btn.innerText = "Enviando...";
+            btn.innerText = "PROCESANDO REPORTE...";
 
             const fotoFile = document.getElementById('foto').files[0];
             const reader = new FileReader();
@@ -85,26 +149,22 @@
                     operario: document.getElementById('operario').value,
                     ph: document.getElementById('ph').value,
                     cloro: document.getElementById('cloro').value,
-                    temp: "25", // Ejemplo fijo
-                    claridad: "Limpia", // Ejemplo fijo
+                    temp: "25º",
+                    claridad: document.getElementById('claridad').value,
                     firma: canvas.toDataURL(),
                     foto: reader.result
                 };
 
-                // AQUÍ USAMOS TU URL
                 const url = "https://script.google.com/macros/s/AKfycbzM2WfD8FNIq3vbeZsIpvPV6LxtxHia9lZ0syPGSTSA5KO3Qy3kObafLwx9pVYre_X8/exec";
 
                 try {
-                    await fetch(url, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: JSON.stringify(payload)
-                    });
-                    alert("✅ ¡Enviado con éxito!");
+                    await fetch(url, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                    alert("✅ PARTE ENVIADO CON ÉXITO");
                     location.reload();
                 } catch (error) {
-                    alert("Error al enviar");
+                    alert("Error en la conexión");
                     btn.disabled = false;
+                    btn.innerText = "REINTENTAR ENVÍO";
                 }
             };
             reader.readAsDataURL(fotoFile);
