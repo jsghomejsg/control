@@ -3,172 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pool Control Premium</title>
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-    <style>
-        :root {
-            --bg-dark: #121212;
-            --card-bg: #1e1e1e;
-            --accent: #d4af37;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --input-bg: #2c2c2c;
-        }
-
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
-        .header { width: 100%; padding: 30px 0 10px 0; text-align: center; }
-        .header h1 { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 0; }
-        #finca-display { font-size: 0.8rem; color: var(--text-dim); margin-top: 5px; }
-
-        .card { background: var(--card-bg); padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); max-width: 400px; width: 95%; border: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; }
-        label { display: block; margin-top: 15px; font-size: 0.75rem; font-weight: 600; color: var(--accent); text-transform: uppercase; }
-        
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #3d3d3d; border-radius: 10px; box-sizing: border-box; font-size: 16px; background: var(--input-bg); color: white; }
-        input:focus { border-color: var(--accent); outline: none; }
-
-        input[type="file"] { padding: 10px; background: #252525; border: 1px dashed var(--accent); cursor: pointer; color: var(--text-dim); font-size: 14px; }
-
-        .sig-wrapper { margin-top: 10px; background: #fff; border-radius: 10px; overflow: hidden; height: 150px; }
-        #signature-pad { width: 100%; height: 100%; }
-
-        .btn-submit { width: 100%; padding: 16px; background: var(--accent); color: #000; border: none; border-radius: 12px; font-size: 15px; font-weight: 800; margin-top: 25px; cursor: pointer; text-transform: uppercase; }
-        .btn-submit:disabled { background: #555; color: #888; cursor: not-allowed; }
-        .btn-clear { background: transparent; color: var(--text-dim); font-size: 10px; border: none; margin-top: 5px; cursor: pointer; text-decoration: underline; }
-    </style>
+    <title>Registro de Piscina</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-
-<div class="header">
-    <h1>Pool Control Pro</h1>
-    <div id="finca-display">Identificando instalación...</div>
-</div>
-
-<div class="card">
-    <form id="piscinaForm">
-        <label>Técnico Responsable</label>
-        <input type="text" id="operario" required placeholder="Nombre y apellidos">
-
-        <div style="display: flex; gap: 10px;">
-            <div style="flex: 1;">
-                <label>pH</label>
-                <input type="number" step="0.1" id="ph" required placeholder="7.2">
+<body class="bg-gray-100 p-4">
+    <div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow-lg">
+        <h1 class="text-2xl font-bold text-blue-600 mb-4 text-center">Control Diario</h1>
+        
+        <form id="piscinaForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium">Código de Finca (Token):</label>
+                <input type="text" id="fincaId" required class="w-full border p-2 rounded">
             </div>
-            <div style="flex: 1;">
-                <label>Cloro (mg/L)</label>
-                <input type="number" step="0.1" id="cloro" required placeholder="1.5">
+
+            <div>
+                <label class="block text-sm font-medium">Técnico:</label>
+                <input type="text" id="operario" required class="w-full border p-2 rounded">
             </div>
-        </div>
 
-        <label>Temperatura (ºC)</label>
-        <input type="number" id="temp" required placeholder="24">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium">pH:</label>
+                    <input type="number" step="0.1" id="ph" required class="w-full border p-2 rounded">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Cloro (mg/L):</label>
+                    <input type="number" step="0.1" id="cloro" required class="w-full border p-2 rounded">
+                </div>
+            </div>
 
-        <label>Estado del Agua</label>
-        <select id="claridad" required>
-            <option value="Cristalina">Cristalina</option>
-            <option value="Ligeramente Turbia">Ligeramente Turbia</option>
-            <option value="Turbia">Turbia</option>
-            <option value="Muy Turbia">Muy Turbia</option>
-        </select>
+            <div>
+                <label class="block text-sm font-medium">Foto del Agua:</label>
+                <input type="file" id="foto" accept="image/*" capture="camera" required class="w-full">
+            </div>
 
-        <label>Foto de la Piscina (Obligatoria)</label>
-        <input type="file" id="foto" accept="image/*" capture="camera" required>
+            <div>
+                <label class="block text-sm font-medium">Firma del Técnico:</label>
+                <canvas id="canvasFirma" class="border w-full h-32 bg-gray-50 rounded"></canvas>
+                <button type="button" onclick="limpiarFirma()" class="text-xs text-red-500 underline">Borrar firma</button>
+            </div>
 
-        <label>Firma de Validación</label>
-        <div class="sig-wrapper">
-            <canvas id="signature-pad"></canvas>
-        </div>
-        <button type="button" class="btn-clear" onclick="signaturePad.clear()">Limpiar firma</button>
+            <button type="submit" id="btnEnviar" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold">
+                ENVIAR REPORTE
+            </button>
+        </form>
+    </div>
 
-        <button type="submit" id="btnEnviar" class="btn-submit">ENVIAR REPORTE PREMIUM</button>
-    </form>
-</div>
+    <script>
+        const canvas = document.getElementById('canvasFirma');
+        const ctx = canvas.getContext('2d');
+        let dibujando = false;
 
-<script>
-    // ESTA ES TU NUEVA URL ACTUALIZADA
-    const G_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwVxQp8qI7l24lnAC1Dv9KdnGAcx36AR0AHak2JENGmpK9Q4EXj8rBH1lOUTqUlLEEI/exec";
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const fincaId = urlParams.get('id') || "General";
-    document.getElementById('finca-display').innerText = "📍 " + fincaId.replace(/_/g, ' ');
-
-    const canvas = document.getElementById('signature-pad');
-    const signaturePad = new SignaturePad(canvas, { penColor: 'rgb(0, 0, 0)' });
-
-    function resizeCanvas() {
-        const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
-        signaturePad.clear();
-    }
-    window.onresize = resizeCanvas;
-    resizeCanvas();
-
-    async function processImage(file) {
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvasImg = document.createElement('canvas');
-                    const MAX_WIDTH = 800; 
-                    let width = img.width;
-                    let height = img.height;
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-                    canvasImg.width = width;
-                    canvasImg.height = height;
-                    canvasImg.getContext('2d').drawImage(img, 0, 0, width, height);
-                    resolve(canvasImg.toDataURL('image/jpeg', 0.6)); 
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+        // Lógica simple de firma
+        canvas.addEventListener('mousedown', () => dibujando = true);
+        canvas.addEventListener('mouseup', () => dibujando = false);
+        canvas.addEventListener('mousemove', (e) => {
+            if (!dibujando) return;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
         });
-    }
 
-    document.getElementById('piscinaForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (signaturePad.isEmpty()) return alert("La firma es obligatoria.");
+        function limpiarFirma() { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.beginPath(); }
 
-        const btn = document.getElementById('btnEnviar');
-        btn.innerText = "PROCESANDO FOTO...";
-        btn.disabled = true;
+        // Envío de datos
+        document.getElementById('piscinaForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnEnviar');
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
 
-        try {
             const fotoFile = document.getElementById('foto').files[0];
-            const fotoBase64 = await processImage(fotoFile);
+            const reader = new FileReader();
+            
+            reader.onloadend = async () => {
+                const payload = {
+                    fincaId: document.getElementById('fincaId').value,
+                    operario: document.getElementById('operario').value,
+                    ph: document.getElementById('ph').value,
+                    cloro: document.getElementById('cloro').value,
+                    temp: "25", // Ejemplo fijo
+                    claridad: "Limpia", // Ejemplo fijo
+                    firma: canvas.toDataURL(),
+                    foto: reader.result
+                };
 
-            const data = {
-                fincaId: fincaId,
-                operario: document.getElementById('operario').value,
-                ph: document.getElementById('ph').value,
-                cloro: document.getElementById('cloro').value,
-                temp: document.getElementById('temp').value,
-                claridad: document.getElementById('claridad').value,
-                firma: signaturePad.toDataURL(),
-                foto: fotoBase64
+                // AQUÍ USAMOS TU URL
+                const url = "https://script.google.com/macros/s/AKfycbzM2WfD8FNIq3vbeZsIpvPV6LxtxHia9lZ0syPGSTSA5KO3Qy3kObafLwx9pVYre_X8/exec";
+
+                try {
+                    await fetch(url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify(payload)
+                    });
+                    alert("✅ ¡Enviado con éxito!");
+                    location.reload();
+                } catch (error) {
+                    alert("Error al enviar");
+                    btn.disabled = false;
+                }
             };
-
-            btn.innerText = "ENVIANDO REPORTE...";
-
-            await fetch(G_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(data)
-            });
-
-            alert("✅ ¡Reporte enviado! Se ha guardado en el Excel y el PDF va camino a tu email.");
-            location.reload();
-        } catch (error) {
-            alert("Error al enviar. Verifica tu conexión.");
-            btn.disabled = false;
-            btn.innerText = "ENVIAR REPORTE PREMIUM";
-        }
-    });
-</script>
-
+            reader.readAsDataURL(fotoFile);
+        };
+    </script>
 </body>
 </html>
