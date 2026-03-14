@@ -5,100 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PoolControl Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkNvbnRyb2wgZGUgUGlzY2luYXMiLAogICJzaG9ydF9uYW1lIjogIlBpc2NpbmFQcm8iLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBkMTExNyIsCiAgInRoZW1lX2NvbG9yIjogIiMxMGI5ODEiCn0=">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0d1117; color: #e6edf3; }
         .glass { background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .btn-premium { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .btn-premium:active { transform: scale(0.98); opacity: 0.9; }
-        canvas { touch-action: none; background-color: #ffffff; cursor: crosshair; }
+        .btn-premium { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); }
+        canvas { touch-action: none; background-color: #ffffff; border-radius: 1.5rem; }
     </style>
 </head>
 <body class="p-4 min-h-screen flex flex-col items-center justify-center">
 
-    <button id="installBtn" class="hidden mb-6 px-6 py-2.5 bg-gray-800 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-extrabold shadow-lg flex items-center gap-2 tracking-widest uppercase">
-        📥 Instalar App Profesional
-    </button>
-
-    <div class="max-w-md w-full glass p-8 rounded-[2.5rem] shadow-2xl border border-white/5">
+    <div class="max-w-md w-full glass p-8 rounded-[2.5rem] shadow-2xl">
         <header class="text-center mb-10">
-            <div class="inline-block px-3 py-1 bg-emerald-500/10 rounded-full mb-3">
-                <p id="labelComunidad" class="text-emerald-500 text-[10px] font-bold uppercase tracking-[0.25em]">Sincronizando...</p>
-            </div>
-            <h1 id="tituloFinca" class="text-3xl font-800 tracking-tighter text-white uppercase leading-none">Cargando Finca</h1>
+            <p id="labelComunidad" class="text-emerald-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Cargando...</p>
+            <h1 id="tituloFinca" class="text-2xl font-800 text-white uppercase tracking-tight">Identificando...</h1>
         </header>
         
         <form id="piscinaForm" class="space-y-6">
             <input type="hidden" id="fincaId">
 
-            <div class="grid grid-cols-2 gap-5">
-                <div class="space-y-2">
-                    <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Nivel pH</label>
-                    <input type="number" step="0.1" id="ph" required class="w-full bg-gray-900/60 border border-gray-700/50 p-4 rounded-2xl focus:ring-2 focus:ring-emerald-500 text-white outline-none transition-all placeholder-gray-600" placeholder="7.2">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-1">pH</label>
+                    <input type="number" step="0.1" id="ph" required class="w-full bg-gray-900 border border-gray-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="7.2">
                 </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Cloro mg/L</label>
-                    <input type="number" step="0.1" id="cloro" required class="w-full bg-gray-900/60 border border-gray-700/50 p-4 rounded-2xl focus:ring-2 focus:ring-emerald-500 text-white outline-none transition-all placeholder-gray-600" placeholder="1.5">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-gray-500 uppercase ml-1">Cloro</label>
+                    <input type="number" step="0.1" id="cloro" required class="w-full bg-gray-900 border border-gray-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="1.5">
                 </div>
             </div>
 
-            <div class="space-y-2">
-                <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Estado de Claridad</label>
-                <select id="claridad" class="w-full bg-gray-900/60 border border-gray-700/50 p-4 rounded-2xl focus:ring-2 focus:ring-emerald-500 text-white outline-none appearance-none cursor-pointer">
-                    <option value="Cristalina / Transparente">💎 Cristalina / Transparente</option>
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-gray-500 uppercase ml-1">Claridad</label>
+                <select id="claridad" class="w-full bg-gray-900 border border-gray-700 p-4 rounded-2xl text-white outline-none appearance-none cursor-pointer">
+                    <option value="Cristalina / Transparente">💎 Cristalina</option>
                     <option value="Ligeramente Turbia">☁️ Ligeramente Turbia</option>
                     <option value="Turbia / Opaca">🌑 Turbia / Opaca</option>
-                    <option value="Muy Turbia / Algas">🌿 Muy Turbia (Aviso Urgente)</option>
+                    <option value="Muy Turbia / Algas">🌿 Muy Turbia (Aviso)</option>
                 </select>
             </div>
 
-            <div class="space-y-2">
-                <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Técnico Operario</label>
-                <input type="text" id="operario" required class="w-full bg-gray-900/60 border border-gray-700/50 p-4 rounded-2xl focus:ring-2 focus:ring-emerald-500 text-white outline-none transition-all" placeholder="Tu nombre">
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-gray-500 uppercase ml-1">Técnico</label>
+                <input type="text" id="operario" required class="w-full bg-gray-900 border border-gray-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Nombre">
             </div>
 
-            <div class="space-y-3">
-                <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center block">Evidencia Visual</label>
-                <input type="file" id="foto" accept="image/*" capture="camera" required class="text-xs text-gray-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:bg-emerald-500/10 file:text-emerald-500 file:font-bold cursor-pointer transition-all w-full">
+            <div class="space-y-1">
+                <label class="text-[10px] font-bold text-gray-500 uppercase ml-1 block text-center">Foto</label>
+                <input type="file" id="foto" accept="image/*" capture="camera" required class="text-xs text-gray-400 w-full file:bg-emerald-500/10 file:text-emerald-500 file:border-0 file:rounded-full file:px-4 file:py-2">
             </div>
 
-            <div class="space-y-3">
-                <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center block">Firma Responsable</label>
-                <div class="bg-white rounded-3xl overflow-hidden shadow-inner p-1">
-                    <canvas id="canvasFirma" class="w-full h-32 rounded-2xl"></canvas>
-                </div>
-                <button type="button" onclick="limpiarFirma()" class="w-full text-[9px] text-gray-600 font-bold uppercase tracking-widest py-1">Limpiar Trazo</button>
+            <div class="space-y-1 text-center">
+                <label class="text-[10px] font-bold text-gray-500 uppercase block">Firma Responsable</label>
+                <canvas id="canvasFirma" class="w-full h-32"></canvas>
+                <button type="button" onclick="limpiarFirma()" class="text-[9px] text-gray-600 uppercase mt-1">Borrar firma</button>
             </div>
 
-            <button type="submit" id="btnEnviar" class="w-full btn-premium py-5 rounded-[1.8rem] font-extrabold text-white shadow-2xl flex justify-center items-center tracking-[0.15em] text-xs uppercase border border-white/10">
-                Finalizar Reporte Diario
+            <button type="submit" id="btnEnviar" class="w-full btn-premium py-5 rounded-[1.5rem] font-bold text-white shadow-xl flex justify-center items-center tracking-widest text-sm uppercase">
+                ENVIAR REPORTE PROFESIONAL
             </button>
         </form>
     </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const fincaId = params.get('id'); 
+        const fincaId = params.get('id');
         const nombreVisible = params.get('n') || "Finca Activa";
-
         if (fincaId) {
             document.getElementById('fincaId').value = fincaId;
             document.getElementById('tituloFinca').innerText = nombreVisible;
-            document.getElementById('labelComunidad').innerText = "Unidad de Control:";
+            document.getElementById('labelComunidad').innerText = "Gestión de:";
         }
 
         const canvas = document.getElementById('canvasFirma');
         const ctx = canvas.getContext('2d');
         let dibujando = false;
-        
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        ctx.lineWidth = 2; ctx.strokeStyle = '#000';
 
         const getPos = (e) => {
             const rect = canvas.getBoundingClientRect();
@@ -107,24 +91,16 @@
             return { x: cx - rect.left, y: cy - rect.top };
         };
 
-        const start = (e) => { dibujando = true; ctx.beginPath(); const {x,y} = getPos(e); ctx.moveTo(x,y); };
-        const move = (e) => { if(!dibujando) return; e.preventDefault(); const {x,y} = getPos(e); ctx.lineTo(x,y); ctx.stroke(); };
-        
-        canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', move);
-        window.addEventListener('mouseup', () => dibujando = false);
-        canvas.addEventListener('touchstart', start); canvas.addEventListener('touchmove', move);
+        canvas.onmousedown = canvas.ontouchstart = (e) => { dibujando = true; ctx.beginPath(); const {x,y} = getPos(e); ctx.moveTo(x,y); };
+        canvas.onmousemove = canvas.ontouchmove = (e) => { if(!dibujando) return; e.preventDefault(); const {x,y} = getPos(e); ctx.lineTo(x,y); ctx.stroke(); };
+        window.onmouseup = window.ontouchend = () => dibujando = false;
 
         function limpiarFirma() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
-        let dp;
-        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); dp = e; document.getElementById('installBtn').classList.remove('hidden'); });
-        document.getElementById('installBtn').addEventListener('click', () => { if(dp){ dp.prompt(); dp = null; } });
 
         document.getElementById('piscinaForm').onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnEnviar');
-            btn.disabled = true; btn.innerText = "ENVIANDO REPORTE...";
+            btn.disabled = true; btn.innerText = "PROCESANDO...";
             
             const reader = new FileReader();
             reader.readAsDataURL(document.getElementById('foto').files[0]);
@@ -134,27 +110,19 @@
                     operario: document.getElementById('operario').value,
                     ph: document.getElementById('ph').value,
                     cloro: document.getElementById('cloro').value,
-                    temp: "N/A",
                     claridad: document.getElementById('claridad').value,
                     firma: canvas.toDataURL(),
                     foto: reader.result
                 };
 
                 // TU URL ACTUALIZADA
-                const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbTuUX9OmDsd-hZZkuxYGi3p59LrvSp8HYgsUK5Xx1SFKtjzMM4ptzrvD8R4Pj6FRZX/exec";
+                const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbTuUX9OmDsd-hZZkuxYGi3p59LrvSp8HYgsUK5Xx1SFKtjzMM4ptzrvD8R4Pj6FRZX/exec";
 
                 try {
-                    await fetch(WEB_APP_URL, { 
-                        method: 'POST', 
-                        mode: 'no-cors', 
-                        body: JSON.stringify(payload) 
-                    });
-                    alert("✅ REPORTE ENVIADO CORRECTAMENTE");
+                    await fetch(URL_SCRIPT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                    alert("✅ REGISTRO ENVIADO CON ÉXITO");
                     location.reload();
-                } catch (err) {
-                    alert("Error al conectar");
-                    btn.disabled = false; btn.innerText = "REINTENTAR";
-                }
+                } catch { alert("Error de red"); btn.disabled = false; }
             };
         };
     </script>
