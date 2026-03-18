@@ -170,15 +170,15 @@
         <form id="mainForm">
             
             <div class="card">
-                <div class="card-header"><i class="fas fa-user-hard-hat"></i> Identificación</div>
+                <div class="card-header"><i class="fas fa-user-tie"></i> Identificación del Personal</div>
                 <div class="form-group">
                     <label>Nombre del Operario</label>
-                    <input type="text" name="operario" placeholder="Tu nombre completo" required>
+                    <input type="text" name="operario" placeholder="Nombre completo" required>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header"><i class="fas fa-flask"></i> Análisis del Agua</div>
+                <div class="card-header"><i class="fas fa-vial"></i> Parámetros Químicos</div>
                 <div class="form-group">
                     <label>Cloro (mg/l)</label>
                     <input type="number" step="0.1" name="cloro" placeholder="Ej: 1.5" required>
@@ -188,37 +188,37 @@
                     <input type="number" step="0.1" name="ph" placeholder="Ej: 7.2" required>
                 </div>
                 <div class="form-group">
-                    <label>Estado Visual</label>
+                    <label>Estado Visual del Agua</label>
                     <select name="claridad" required>
-                        <option value="cristalina">Cristalina</option>
-                        <option value="turbia">Turbia</option>
-                        <option value="muy_turbia">Muy Turbia</option>
-                        <option value="algas">Algas Detectadas</option>
+                        <option value="cristalina">Cristalina (Óptimo)</option>
+                        <option value="turbia">Turbia (Revisar filtración)</option>
+                        <option value="suciedad_juntas">Manchas o Suciedad en juntas</option>
+                        <option value="algas">Algas / Agua Verde (Alerta)</option>
                     </select>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header"><i class="fas fa-camera"></i> Evidencia y Notas</div>
+                <div class="card-header"><i class="fas fa-camera-retro"></i> Evidencia y Notas</div>
                 <div class="camera-box" onclick="document.getElementById('photoInput').click()">
                     <i class="fas fa-camera"></i>
-                    <p>Capturar estado del agua</p>
+                    <p>Capturar estado de la piscina</p>
                     <input type="file" id="photoInput" accept="image/*" capture="camera" style="display:none" onchange="handlePhoto(event)">
                     <img id="preview">
                 </div>
                 <div class="form-group" style="margin-top:20px;">
-                    <label>Observaciones</label>
-                    <textarea name="notas" rows="3" placeholder="Incidencias, productos añadidos..."></textarea>
+                    <label>Observaciones e Incidencias</label>
+                    <textarea name="notas" rows="3" placeholder="Productos añadidos, reparaciones necesarias..."></textarea>
                 </div>
             </div>
 
             <button type="submit" class="btn-submit">
-                <i class="fas fa-check-circle"></i> ENVIAR INFORME DIARIO
+                <i class="fas fa-paper-plane"></i> ENVIAR INFORME DIARIO
             </button>
         </form>
     </div>
 
-    <footer>&copy; 2026 Registro Técnico Profesional</footer>
+    <footer>&copy; 2026 Central de Desatascos - Pool Control Pro</footer>
 
     <script>
         // Lógica de Foto
@@ -229,7 +229,7 @@
                 img.src = reader.result;
                 img.style.display = 'block';
             };
-            reader.readAsDataURL(e.target.files[0]);
+            if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
         }
 
         // Lógica de Instalación (PWA)
@@ -259,7 +259,7 @@
         // Envío
         document.getElementById('mainForm').onsubmit = (e) => {
             e.preventDefault();
-            alert("Informe enviado con éxito al Administrador.");
+            alert("Informe registrado y enviado al Administrador.");
             location.reload();
         };
     </script>
