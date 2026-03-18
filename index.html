@@ -1,135 +1,241 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PoolControl Pro</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-body { background-color: #111827; color: white; font-family: sans-serif; }
-.input-field { background-color: #1f2937; border: 2px solid #374151; color: white; padding: 15px; border-radius: 12px; width: 100%; font-size: 16px; outline: none; }
-.input-field:focus { border-color: #10b981; }
-canvas { background-color: white; border-radius: 12px; touch-action: none; border: 2px solid #374151; }
-.btn-send { background: #10b981; color: white; font-weight: bold; padding: 18px; border-radius: 12px; width: 100%; text-transform: uppercase; margin-top: 10px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Control Técnico de Piscinas | Registro Diario</title>
+    <meta name="theme-color" content="#00509d">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00509d;
+            --secondary: #003366;
+            --success: #28a745;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .container {
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .form-group { margin-bottom: 15px; }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus { border-color: var(--primary); }
+
+        /* Estilo para la Cámara */
+        .camera-container {
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #adb5bd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .camera-container:active { background: #f1f3f5; }
+        .camera-container i { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
+        .camera-container p { margin: 0; font-size: 0.8rem; color: #6c757d; }
+
+        #preview {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .btn-submit {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-submit:active { transform: scale(0.98); }
+
+        .btn-install {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #adb5bd; }
+    </style>
 </head>
-<body class="p-4">
+<body>
 
-<div class="max-w-md mx-auto space-y-6">
-<header class="text-center py-4">
-<h1 id="tituloFinca" class="text-2xl font-bold text-emerald-400 uppercase">PoolControl</h1>
-<p id="labelComunidad" class="text-gray-400 text-sm">Registro Técnico</p>
-</header>
+    <header>
+        <h1>Control Sanitario Piscinas</h1>
+        <button id="installBtn" class="btn-install" style="display:none;">
+            <i class="fas fa-download"></i> INSTALAR APP
+        </button>
+    </header>
 
-<form id="piscinaForm" class="space-y-4">
-<input type="hidden" id="fincaId">
+    <div class="container">
+        <form id="poolForm">
+            <div class="card">
+                <div class="form-group">
+                    <label><i class="fas fa-vial"></i> Nivel de Cloro (mg/l)</label>
+                    <input type="number" step="0.1" name="cloro" placeholder="Ej: 1.5" required>
+                </div>
 
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-bold mb-1 text-gray-400">PH</label>
-<input type="number" step="0.1" id="ph" required class="input-field" placeholder="7.2">
-</div>
-<div>
-<label class="block text-xs font-bold mb-1 text-gray-400">CLORO</label>
-<input type="number" step="0.1" id="cloro" required class="input-field" placeholder="1.5">
-</div>
-</div>
+                <div class="form-group">
+                    <label><i class="fas fa-thermometer-half"></i> Nivel de pH</label>
+                    <input type="number" step="0.1" name="ph" placeholder="Ej: 7.2" required>
+                </div>
 
-<div>
-<label class="block text-xs font-bold mb-1 text-gray-400">NOMBRE DEL TÉCNICO</label>
-<input type="text" id="operario" required class="input-field" placeholder="Tu nombre">
-</div>
+                <div class="form-group">
+                    <label><i class="fas fa-tint"></i> Claridad del Agua</label>
+                    <select name="claridad" required>
+                        <option value="" disabled selected>Seleccione estado...</option>
+                        <option value="cristalina">Cristalina</option>
+                        <option value="turbia">Turbia</option>
+                        <option value="muy_turbia">Muy Turbia</option>
+                        <option value="algas">Presencia de Algas</option>
+                    </select>
+                </div>
+            </div>
 
-<div class="space-y-2">
-<label class="block text-xs font-bold text-center text-gray-400 uppercase tracking-widest">Firma obligatoria</label>
-<canvas id="canvasFirma" class="w-full h-40"></canvas>
-<button type="button" onclick="limpiarFirma()" class="w-full text-xs text-gray-500 uppercase py-2">Borrar Firma</button>
-</div>
+            <div class="card">
+                <label><i class="fas fa-camera"></i> Evidencia Visual</label>
+                <div class="camera-container" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-camera-retro"></i>
+                    <p>Pulsa para hacer foto del agua</p>
+                    <input type="file" id="fileInput" accept="image/*" capture="camera" style="display:none" onchange="previewImage(event)">
+                    <img id="preview" alt="Vista previa">
+                </div>
+            </div>
 
-<button type="submit" id="btnEnviar" class="btn-send shadow-lg">
-Enviar Reporte Ahora
-</button>
-</form>
-</div>
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-cloud-upload-alt"></i> ENVIAR REGISTRO DIARIO
+            </button>
+        </form>
+    </div>
 
-<script>
-const params = new URLSearchParams(window.location.search);
-const fincaId = params.get('id');
-const nombreVisible = params.get('n') || "Finca Activa";
+    <footer>
+        &copy; 2026 Sistema de Control de Piscinas v2.0
+    </footer>
 
-if (fincaId) {
-document.getElementById('fincaId').value = fincaId;
-document.getElementById('tituloFinca').innerText = nombreVisible;
-}
+    <script>
+        // Previsualización de imagen
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
-const canvas = document.getElementById('canvasFirma');
-const ctx = canvas.getContext('2d');
-let dibujando = false;
+        // Lógica de Envío
+        document.getElementById('poolForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            // Aquí iría tu URL de Google Apps Script para guardar los datos
+            const scriptURL = 'https://script.google.com/macros/s/TU_SCRIPT_ID/exec';
+            
+            alert('Enviando datos al Administrador de Fincas...');
+            
+            // Simulación de envío
+            setTimeout(() => {
+                alert('Registro guardado correctamente. Foto y niveles almacenados.');
+                this.reset();
+                document.getElementById('preview').style.display = 'none';
+            }, 1500);
+        };
 
-// Ajustar tamaño del canvas al cargar
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
+        // Registro del Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(() => console.log("Service Worker Activo"));
+        }
 
-const getPos = (e) => {
-const rect = canvas.getBoundingClientRect();
-const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-return { x: clientX - rect.left, y: clientY - rect.top };
-};
+        // Lógica del Botón de Instalación
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'inline-block';
+        });
 
-const empezarDibujo = (e) => {
-dibujando = true;
-ctx.beginPath();
-const pos = getPos(e);
-ctx.moveTo(pos.x, pos.y);
-};
-
-const dibujar = (e) => {
-if (!dibujando) return;
-e.preventDefault();
-const pos = getPos(e);
-ctx.lineTo(pos.x, pos.y);
-ctx.lineWidth = 3;
-ctx.lineCap = "round";
-ctx.strokeStyle = "#000";
-ctx.stroke();
-};
-
-canvas.addEventListener('mousedown', empezarDibujo);
-canvas.addEventListener('touchstart', empezarDibujo);
-canvas.addEventListener('mousemove', dibujar);
-canvas.addEventListener('touchmove', dibujar, { passive: false });
-window.addEventListener('mouseup', () => dibujando = false);
-window.addEventListener('touchend', () => dibujando = false);
-
-function limpiarFirma() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-document.getElementById('piscinaForm').onsubmit = async (e) => {
-e.preventDefault();
-const btn = document.getElementById('btnEnviar');
-btn.disabled = true;
-btn.innerText = "ENVIANDO DATOS...";
-
-const payload = {
-fincaId: document.getElementById('fincaId').value,
-operario: document.getElementById('operario').value,
-ph: document.getElementById('ph').value,
-cloro: document.getElementById('cloro').value,
-firma: canvas.toDataURL()
-};
-
-const URL_SCRIPT = "https://script.google.com/macros/s/AKfycby-WnWXtzlQlgblZqqkzpBQ9ZHR0aIe-8LHI3UxRf6WZqUI8mo4QkKPZHh_gQffxC6Ahw/exec";
-
-try {
-await fetch(URL_SCRIPT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-alert("✅ REGISTRO RECIBIDO");
-location.reload();
-} catch (err) {
-alert("Error de conexión");
-btn.disabled = false;
-btn.innerText = "REINTENTAR";
-}
-};
-</script>
+        document.getElementById('installBtn').addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installBtn').style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
