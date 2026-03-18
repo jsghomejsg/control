@@ -3,303 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>POOL CONTROL PRO | v2.0</title>
+    <title>POOL CONTROL PRO | Registro Técnico</title>
     <meta name="theme-color" content="#0056b3">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
-        :root {
-            --primary: #0056b3;
-            --accent: #00c2ff;
-            --success: #28a745;
-            --dark: #1a2a3a;
-            --light: #f4f7f9;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--light);
-            margin: 0;
-            padding: 0;
-            color: var(--dark);
-        }
-
-        /* Banner de Instalación */
-        #installBanner {
-            background: var(--dark);
-            color: white;
-            padding: 15px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-        }
-
-        .btn-download {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        header h1 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; }
-        header p { margin: 5px 0 0; opacity: 0.8; font-size: 0.8rem; }
-
-        .container {
-            padding: 20px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .card-header {
-            font-weight: 800;
-            font-size: 0.85rem;
-            color: #95a5a6;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        :root { --primary: #0056b3; --accent: #00c2ff; --success: #28a745; --dark: #1a2a3a; --light: #f4f7f9; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--light); margin: 0; padding: 0; color: var(--dark); }
+        #installBanner { background: var(--dark); color: white; padding: 15px; display: none; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 2000; }
+        .btn-download { background: var(--success); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        header { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 25px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .container { padding: 20px; max-width: 500px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .card-header { font-weight: 800; font-size: 0.85rem; color: #95a5a6; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         .form-group { margin-bottom: 20px; }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #edf2f7;
-            border-radius: 12px;
-            box-sizing: border-box;
-            font-size: 1rem;
-            background: #fafbfc;
-            transition: all 0.3s;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--primary);
-            background: white;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
-        }
-
-        /* Cámara */
-        .camera-box {
-            border: 2px dashed #cbd5e0;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            background: #f8fafc;
-        }
-
-        .camera-box i { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
-        
-        #preview {
-            width: 100%;
-            border-radius: 12px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .btn-submit {
-            background: var(--success);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 20px;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-submit:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-        }
-
+        label { display: block; margin-bottom: 8px; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; box-sizing: border-box; font-size: 1rem; background: #fafbfc; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; outline: none; }
+        .camera-box { border: 2px dashed #cbd5e0; border-radius: 15px; padding: 30px; text-align: center; cursor: pointer; background: #f8fafc; }
+        #preview { width: 100%; border-radius: 12px; margin-top: 15px; display: none; }
+        .btn-submit { background: var(--success); color: white; border: none; width: 100%; padding: 20px; border-radius: 15px; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         footer { text-align: center; color: #a0aec0; font-size: 0.8rem; padding: 20px; }
     </style>
 </head>
 <body>
-
-    <div id="installBanner">
-        <span>📲 Instala esta App en tu móvil</span>
-        <button class="btn-download" id="installBtn">DESCARGAR</button>
-    </div>
-
-    <header>
-        <h1>POOL CONTROL PRO</h1>
-        <p>Registro Técnico para Administradores</p>
-    </header>
-
+    <div id="installBanner"><span>📲 Instala esta App</span><button class="btn-download" id="installBtn">DESCARGAR</button></div>
+    <header><h1>POOL CONTROL PRO</h1><p>Registro Técnico para Administradores</p></header>
     <div class="container">
         <form id="mainForm">
-            
             <div class="card">
-                <div class="card-header"><i class="fas fa-user-hard-hat"></i> Identificación</div>
-                <div class="form-group">
-                    <label>Nombre del Operario</label>
-                    <input type="text" id="operario" name="operario" placeholder="Tu nombre completo" required>
-                </div>
+                <div class="card-header"><i class="fas fa-user"></i> Personal</div>
+                <input type="text" id="operario" placeholder="Nombre del Operario" required>
             </div>
-
             <div class="card">
-                <div class="card-header"><i class="fas fa-flask"></i> Análisis del Agua</div>
-                <div class="form-group">
-                    <label>Cloro (mg/l)</label>
-                    <input type="number" step="0.1" id="cloro" name="cloro" placeholder="Ej: 1.5" required>
-                </div>
-                <div class="form-group">
-                    <label>pH</label>
-                    <input type="number" step="0.1" id="ph" name="ph" placeholder="Ej: 7.2" required>
-                </div>
+                <div class="card-header"><i class="fas fa-flask"></i> Análisis</div>
+                <div class="form-group"><label>Cloro (mg/l)</label><input type="number" step="0.1" id="cloro" required></div>
+                <div class="form-group"><label>pH</label><input type="number" step="0.1" id="ph" required></div>
                 <div class="form-group">
                     <label>Estado Visual</label>
-                    <select id="claridad" name="claridad" required>
+                    <select id="claridad">
                         <option value="cristalina">Cristalina</option>
                         <option value="turbia">Turbia</option>
-                        <option value="suciedad_juntas">Manchas o Suciedad en juntas</option>
+                        <option value="suciedad_juntas">Manchas / Suciedad en juntas</option>
                         <option value="algas">Algas Detectadas</option>
                     </select>
                 </div>
             </div>
-
             <div class="card">
-                <div class="card-header"><i class="fas fa-camera"></i> Evidencia y Notas</div>
+                <div class="card-header"><i class="fas fa-camera"></i> Evidencia</div>
                 <div class="camera-box" onclick="document.getElementById('photoInput').click()">
-                    <i class="fas fa-camera"></i>
-                    <p>Capturar estado del agua</p>
+                    <i class="fas fa-camera"></i><p>Capturar estado</p>
                     <input type="file" id="photoInput" accept="image/*" capture="camera" style="display:none" onchange="handlePhoto(event)">
                     <img id="preview">
                 </div>
-                <div class="form-group" style="margin-top:20px;">
-                    <label>Observaciones</label>
-                    <textarea id="notas" name="notas" rows="3" placeholder="Incidencias o notas adicionales..."></textarea>
-                </div>
+                <div class="form-group" style="margin-top:20px;"><label>Observaciones</label><textarea id="notas" rows="3"></textarea></div>
             </div>
-
-            <button type="submit" id="submitBtn" class="btn-submit">
-                <i class="fas fa-check-circle"></i> ENVIAR INFORME DIARIO
-            </button>
+            <button type="submit" id="submitBtn" class="btn-submit"><i class="fas fa-paper-plane"></i> ENVIAR INFORME</button>
         </form>
     </div>
-
-    <footer>&copy; 2026 Registro Técnico Profesional</footer>
-
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyuz5a6D_AqoHN1HG2YkZAijexM3rhkciHZD1TZTprkKlSjCiwWFSdUOdf0WsZ8m9pu/exec';
         let base64Image = "";
-
-        // Manejo de la fotografía
         function handlePhoto(e) {
-            const file = e.target.files[0];
             const reader = new FileReader();
-            reader.onload = () => {
-                const img = document.getElementById('preview');
-                img.src = reader.result;
-                img.style.display = 'block';
-                base64Image = reader.result; // Guardamos la imagen en Base64
-            };
-            if(file) reader.readAsDataURL(file);
+            reader.onload = () => { document.getElementById('preview').src = reader.result; document.getElementById('preview').style.display = 'block'; base64Image = reader.result; };
+            if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
         }
-
-        // Lógica de Envío
         document.getElementById('mainForm').onsubmit = (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
-
-            const payload = {
-                operario: document.getElementById('operario').value,
-                cloro: document.getElementById('cloro').value,
-                ph: document.getElementById('ph').value,
-                claridad: document.getElementById('claridad').value,
-                notas: document.getElementById('notas').value,
-                foto: base64Image
-            };
-
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors', // Necesario para Google Apps Script
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(() => {
-                alert("¡Informe enviado con éxito!");
-                location.reload();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Hubo un error al enviar el informe.");
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> ENVIAR INFORME DIARIO';
-            });
+            btn.disabled = true; btn.innerHTML = 'ENVIANDO...';
+            const payload = { operario: document.getElementById('operario').value, cloro: document.getElementById('cloro').value, ph: document.getElementById('ph').value, claridad: document.getElementById('claridad').value, notas: document.getElementById('notas').value, foto: base64Image };
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+            .then(() => { alert("¡Enviado!"); location.reload(); })
+            .catch(() => { alert("Error al enviar"); btn.disabled = false; });
         };
-
-        // Lógica de Instalación (PWA)
         let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBanner').style.display = 'flex';
-        });
-
-        document.getElementById('installBtn').addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((result) => {
-                    if (result.outcome === 'accepted') {
-                        document.getElementById('installBanner').style.display = 'none';
-                    }
-                });
-            }
-        });
-
-        // Registro de Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; document.getElementById('installBanner').style.display = 'flex'; });
+        document.getElementById('installBtn').addEventListener('click', () => { if (deferredPrompt) { deferredPrompt.prompt(); } });
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
     </script>
 </body>
 </html>
