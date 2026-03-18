@@ -1,0 +1,17 @@
+{
+  "short_name": "PoolControl",
+  "name": "Pool Control Pro - Registro Técnico",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3144/3144467.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#0056b3",
+  "display": "standalone",
+  "scope": "./",
+  "theme_color": "#0056b3",
+  "description": "App de control diario para piscinas comunitarias."
+}
