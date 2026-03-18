@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>POOL CONTROL PRO | Registro Técnico</title>
+    <title>POOL CONTROL PRO | v2.0</title>
     <meta name="theme-color" content="#0056b3">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -151,6 +151,11 @@
             gap: 10px;
         }
 
+        .btn-submit:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
         footer { text-align: center; color: #a0aec0; font-size: 0.8rem; padding: 20px; }
     </style>
 </head>
@@ -163,74 +168,114 @@
 
     <header>
         <h1>POOL CONTROL PRO</h1>
-        <p>Sistema de Registro para Administradores de Fincas</p>
+        <p>Registro Técnico para Administradores</p>
     </header>
 
     <div class="container">
         <form id="mainForm">
             
             <div class="card">
-                <div class="card-header"><i class="fas fa-user-tie"></i> Identificación del Personal</div>
+                <div class="card-header"><i class="fas fa-user-hard-hat"></i> Identificación</div>
                 <div class="form-group">
                     <label>Nombre del Operario</label>
-                    <input type="text" name="operario" placeholder="Nombre completo" required>
+                    <input type="text" id="operario" name="operario" placeholder="Tu nombre completo" required>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header"><i class="fas fa-vial"></i> Parámetros Químicos</div>
+                <div class="card-header"><i class="fas fa-flask"></i> Análisis del Agua</div>
                 <div class="form-group">
                     <label>Cloro (mg/l)</label>
-                    <input type="number" step="0.1" name="cloro" placeholder="Ej: 1.5" required>
+                    <input type="number" step="0.1" id="cloro" name="cloro" placeholder="Ej: 1.5" required>
                 </div>
                 <div class="form-group">
                     <label>pH</label>
-                    <input type="number" step="0.1" name="ph" placeholder="Ej: 7.2" required>
+                    <input type="number" step="0.1" id="ph" name="ph" placeholder="Ej: 7.2" required>
                 </div>
                 <div class="form-group">
-                    <label>Estado Visual del Agua</label>
-                    <select name="claridad" required>
-                        <option value="cristalina">Cristalina (Óptimo)</option>
-                        <option value="turbia">Turbia (Revisar filtración)</option>
+                    <label>Estado Visual</label>
+                    <select id="claridad" name="claridad" required>
+                        <option value="cristalina">Cristalina</option>
+                        <option value="turbia">Turbia</option>
                         <option value="suciedad_juntas">Manchas o Suciedad en juntas</option>
-                        <option value="algas">Algas / Agua Verde (Alerta)</option>
+                        <option value="algas">Algas Detectadas</option>
                     </select>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header"><i class="fas fa-camera-retro"></i> Evidencia y Notas</div>
+                <div class="card-header"><i class="fas fa-camera"></i> Evidencia y Notas</div>
                 <div class="camera-box" onclick="document.getElementById('photoInput').click()">
                     <i class="fas fa-camera"></i>
-                    <p>Capturar estado de la piscina</p>
+                    <p>Capturar estado del agua</p>
                     <input type="file" id="photoInput" accept="image/*" capture="camera" style="display:none" onchange="handlePhoto(event)">
                     <img id="preview">
                 </div>
                 <div class="form-group" style="margin-top:20px;">
-                    <label>Observaciones e Incidencias</label>
-                    <textarea name="notas" rows="3" placeholder="Productos añadidos, reparaciones necesarias..."></textarea>
+                    <label>Observaciones</label>
+                    <textarea id="notas" name="notas" rows="3" placeholder="Incidencias o notas adicionales..."></textarea>
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">
-                <i class="fas fa-paper-plane"></i> ENVIAR INFORME DIARIO
+            <button type="submit" id="submitBtn" class="btn-submit">
+                <i class="fas fa-check-circle"></i> ENVIAR INFORME DIARIO
             </button>
         </form>
     </div>
 
-    <footer>&copy; 2026 Central de Desatascos - Pool Control Pro</footer>
+    <footer>&copy; 2026 Registro Técnico Profesional</footer>
 
     <script>
-        // Lógica de Foto
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyuz5a6D_AqoHN1HG2YkZAijexM3rhkciHZD1TZTprkKlSjCiwWFSdUOdf0WsZ8m9pu/exec';
+        let base64Image = "";
+
+        // Manejo de la fotografía
         function handlePhoto(e) {
+            const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = () => {
                 const img = document.getElementById('preview');
                 img.src = reader.result;
                 img.style.display = 'block';
+                base64Image = reader.result; // Guardamos la imagen en Base64
             };
-            if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+            if(file) reader.readAsDataURL(file);
         }
+
+        // Lógica de Envío
+        document.getElementById('mainForm').onsubmit = (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
+
+            const payload = {
+                operario: document.getElementById('operario').value,
+                cloro: document.getElementById('cloro').value,
+                ph: document.getElementById('ph').value,
+                claridad: document.getElementById('claridad').value,
+                notas: document.getElementById('notas').value,
+                foto: base64Image
+            };
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // Necesario para Google Apps Script
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                alert("¡Informe enviado con éxito!");
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Hubo un error al enviar el informe.");
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> ENVIAR INFORME DIARIO';
+            });
+        };
 
         // Lógica de Instalación (PWA)
         let deferredPrompt;
@@ -251,17 +296,10 @@
             }
         });
 
-        // Registro Service Worker
+        // Registro de Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
-
-        // Envío
-        document.getElementById('mainForm').onsubmit = (e) => {
-            e.preventDefault();
-            alert("Informe registrado y enviado al Administrador.");
-            location.reload();
-        };
     </script>
 </body>
 </html>
