@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>POOL CONTROL PRO | Registro Técnico</title>
+    <title>POOL CONTROL PRO | v2.0</title>
     <meta name="theme-color" content="#0056b3">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -27,16 +27,16 @@
     </style>
 </head>
 <body>
-    <div id="installBanner"><span>📲 Instala esta App</span><button class="btn-download" id="installBtn">DESCARGAR</button></div>
-    <header><h1>POOL CONTROL PRO</h1><p>Registro Técnico para Administradores</p></header>
+    <div id="installBanner"><span>📲 Instalar App</span><button class="btn-download" id="installBtn">DESCARGAR</button></div>
+    <header><h1>POOL CONTROL PRO</h1><p>Registro Técnico Profesional</p></header>
     <div class="container">
         <form id="mainForm">
             <div class="card">
-                <div class="card-header"><i class="fas fa-user"></i> Personal</div>
-                <input type="text" id="operario" placeholder="Nombre del Operario" required>
+                <div class="card-header"><i class="fas fa-user"></i> Operario</div>
+                <input type="text" id="operario" placeholder="Tu nombre" required>
             </div>
             <div class="card">
-                <div class="card-header"><i class="fas fa-flask"></i> Análisis</div>
+                <div class="card-header"><i class="fas fa-flask"></i> Química</div>
                 <div class="form-group"><label>Cloro (mg/l)</label><input type="number" step="0.1" id="cloro" required></div>
                 <div class="form-group"><label>pH</label><input type="number" step="0.1" id="ph" required></div>
                 <div class="form-group">
@@ -44,7 +44,7 @@
                     <select id="claridad">
                         <option value="cristalina">Cristalina</option>
                         <option value="turbia">Turbia</option>
-                        <option value="suciedad_juntas">Manchas / Suciedad en juntas</option>
+                        <option value="suciedad_juntas">Suciedad en juntas</option>
                         <option value="algas">Algas Detectadas</option>
                     </select>
                 </div>
@@ -52,17 +52,17 @@
             <div class="card">
                 <div class="card-header"><i class="fas fa-camera"></i> Evidencia</div>
                 <div class="camera-box" onclick="document.getElementById('photoInput').click()">
-                    <i class="fas fa-camera"></i><p>Capturar estado</p>
+                    <i class="fas fa-camera"></i><p>Hacer foto</p>
                     <input type="file" id="photoInput" accept="image/*" capture="camera" style="display:none" onchange="handlePhoto(event)">
                     <img id="preview">
                 </div>
-                <div class="form-group" style="margin-top:20px;"><label>Observaciones</label><textarea id="notas" rows="3"></textarea></div>
+                <div class="form-group" style="margin-top:20px;"><label>Notas</label><textarea id="notas" rows="3"></textarea></div>
             </div>
-            <button type="submit" id="submitBtn" class="btn-submit"><i class="fas fa-paper-plane"></i> ENVIAR INFORME</button>
+            <button type="submit" id="submitBtn" class="btn-submit">ENVIAR INFORME</button>
         </form>
     </div>
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyuz5a6D_AqoHN1HG2YkZAijexM3rhkciHZD1TZTprkKlSjCiwWFSdUOdf0WsZ8m9pu/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxs26eg9uiNnCdJWmgb-tZKfApnGUJFxiSxFxvXxZBkQ2I-4vhxG9vfU9L7FUxfgoIL/exec';
         let base64Image = "";
         function handlePhoto(e) {
             const reader = new FileReader();
@@ -75,7 +75,7 @@
             btn.disabled = true; btn.innerHTML = 'ENVIANDO...';
             const payload = { operario: document.getElementById('operario').value, cloro: document.getElementById('cloro').value, ph: document.getElementById('ph').value, claridad: document.getElementById('claridad').value, notas: document.getElementById('notas').value, foto: base64Image };
             fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
-            .then(() => { alert("¡Enviado!"); location.reload(); })
+            .then(() => { alert("¡Informe enviado!"); location.reload(); })
             .catch(() => { alert("Error al enviar"); btn.disabled = false; });
         };
         let deferredPrompt;
