@@ -4,27 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Pool Control Pro | Digitalización de Libros de Registro de Piscinas RD 742/2013</title>
-    <meta name="description" content="Digitalice el libro de registro sanitario de piscinas para comunidades, hoteles, campings y empresas de socorrismo. Trazabilidad total con QR pegado, cámara anti-fraude y reportes PDF configurables. Ahorre miles de euros en mantenimiento preventivo.">
-    <meta name="keywords" content="digitalizar libro registro piscinas, control sanitario piscinas hoteles madrid, app socorristas barcelona, gestión comunidades propietarios, normativa piscinas 2026, RD 742/2013, mantenimiento preventivo piscinas invierno, ahorro agua piscinas">
+    <title>Pool Control Pro v2.0 | Digitalización de Libros de Registro de Piscinas RD 742/2013</title>
+    <meta name="description" content="Digitalice el libro de registro sanitario de piscinas para comunidades, hoteles y socorristas. Trazabilidad total con QR, cámara anti-fraude y reportes PDF.">
+    <meta name="keywords" content="digitalizar libro registro piscinas, control sanitario piscinas hoteles, app socorristas, gestión comunidades propietarios, normativa piscinas 2026, RD 742/2013, mantenimiento preventivo piscinas invierno">
     <link rel="canonical" href="https://jsghomejsg.github.io/control/presentacion/">
     
     <meta property="og:title" content="Pool Control Pro: Blindaje Sanitario de Piscinas">
     <meta property="og:description" content="Libro de Registro Digital profesional. Adiós al papel, hola a la trazabilidad legal 24/7.">
     <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/3144/3144467.png">
-    <meta property="og:url" content="https://jsghomejsg.github.io/control/presentacion/">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "SoftwareApplication",
-      "name": "Pool Control Pro",
-      "operatingSystem": "iOS, Android, Web",
-      "applicationCategory": "BusinessApplication",
-      "aggregationRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "124" },
-      "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "EUR" }
-    }
-    </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -33,62 +20,55 @@
             --primary: #0056b3; --cyan: #00c2ff; --dark: #1a2a3a; --grey: #f4f7f9; --white: #ffffff; --green: #28a745; --orange: #e67e22; --red: #e74c3c;
         }
 
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; padding: 0; color: var(--dark); line-height: 1.6; scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; color: var(--dark); line-height: 1.6; scroll-behavior: smooth; }
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
         /* Hero Section */
         header { background: linear-gradient(135deg, var(--primary), var(--cyan)); color: var(--white); padding: 120px 0; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
-        header h1 { font-size: 3.5rem; margin: 0; font-weight: 800; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        header h1 { font-size: 3.5rem; margin: 0; font-weight: 800; letter-spacing: -1px; }
         header p { font-size: 1.3rem; opacity: 0.95; margin: 20px auto 40px; max-width: 800px; }
         
         .btn-main { background: var(--green); color: var(--white); padding: 18px 35px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4); }
         .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(40, 167, 69, 0.5); }
 
-        /* Sectores */
-        .sectors { background: var(--white); padding: 60px 0; border-bottom: 1px solid #eee; }
-        .sectors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; }
-        .sector-item { border: 1px solid #eee; border-radius: 10px; padding: 25px; transition: 0.2s; background: var(--white); }
+        /* Sectores - SECCIÓN MEJORADA */
+        .sectors { background: var(--white); padding: 80px 0; border-bottom: 1px solid #eee; text-align: center; }
+        .sectors h2 { color: var(--primary); margin-bottom: 40px; font-size: 2rem; }
+        .sectors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .sector-item { border: 1px solid #eee; border-radius: 15px; padding: 30px; background: var(--white); transition: 0.3s; }
+        .sector-item:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .sector-item i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .sector-item h4 { margin: 0; color: var(--primary); font-size: 1.1rem; }
+        .sector-item h4 { margin: 10px 0; color: var(--primary); font-size: 1.2rem; }
+        .sector-item p { font-size: 0.9rem; color: #7f8c8d; margin: 0; line-height: 1.4; }
 
-        /* Superpoderes (Features) */
+        /* Features */
         section { padding: 100px 0; }
         section h2 { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 50px; }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-item { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid var(--cyan); transition: transform 0.3s; }
+        .feature-item { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid var(--cyan); transition: transform 0.3s; position: relative; overflow: hidden; }
         .feature-item:hover { transform: translateY(-5px); }
         .feature-item h3 { color: var(--primary); margin-top: 0; display: flex; align-items: center; gap: 10px; }
         .feature-item i.feature-icon { font-size: 2rem; color: var(--cyan); }
         .feature-item p { color: #7f8c8d; font-size: 0.95rem; }
-        .feature-item .tag { background: var(--red); color: white; padding: 3px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; margin-left: auto; }
+        .feature-item .tag { background: var(--red); color: white; padding: 5px 40px; font-size: 0.7rem; font-weight: bold; position: absolute; top: 15px; right: -35px; transform: rotate(45deg); }
 
-        /* Sección Hibernación/Ahorro (Ataque al dolor invernal) */
+        /* Ahorro e Hibernación */
         #ahorro { background: var(--dark); color: white; padding: 80px 0; border-radius: 30px; margin: 60px 0; }
         #ahorro h2 { color: white; text-align: center; margin-bottom: 50px; }
-        .savings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .savings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
         .savings-card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid var(--green); border: 1px solid rgba(255,255,255,0.1); }
         .savings-card h4 { color: var(--green); font-size: 1.4rem; margin: 0 0 15px; }
-        .savings-card ul { padding-left: 20px; color: #7f8c8d; opacity: 0.9; font-size: 0.95rem; }
+        .savings-card ul { padding-left: 20px; color: #cbd5e0; font-size: 0.95rem; }
         .savings-card ul li { margin-bottom: 8px; }
 
-        /* Sección Legal Box */
-        .legal-box { background: linear-gradient(135deg, var(--primary), var(--cyan)); color: var(--white); padding: 40px; border-radius: 20px; margin-top: 60px; display: flex; align-items: center; gap: 30px; box-shadow: 0 15px 35px rgba(0, 86, 179, 0.3); }
-        .legal-box i { font-size: 4rem; }
-        .legal-box h4 { margin-top: 0; font-size: 1.4rem; color: var(--white); }
-        .legal-box p { margin-bottom: 0; opacity: 0.9; }
-
-        /* Footer profesional */
+        /* Footer */
         footer { background: var(--dark); color: white; text-align: center; padding: 80px 0; border-top: 1px solid #2c3e50; }
-        .contact-info a { color: var(--cyan); text-decoration: none; font-weight: 800; font-size: 2.5rem; transition: 0.2s; }
-        .contact-info a:hover { color: var(--white); }
-        .contact-details p { font-size: 1.1rem; margin: 15px 0; }
-        .contact-details i { margin-right: 12px; color: var(--cyan); }
-        .contact-details a { text-decoration: none; color: white; }
+        .phone { font-size: 2.5rem; color: var(--cyan); text-decoration: none; font-weight: 800; display: block; margin: 20px 0; }
 
         @media (max-width: 768px) {
             header h1 { font-size: 2.5rem; }
-            .feature-item { padding: 30px; }
-            .savings-grid, .legal-box { flex-direction: column; text-align: center; padding: 30px; }
+            .savings-grid { grid-template-columns: 1fr; }
+            .phone { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -96,88 +76,85 @@
 
     <header>
         <div class="container">
-            <h1>Libro de Registro Digital Profesional</h1>
-            <p>El sistema de autocontrol sanitario que **garantiza la presencia física** del operario y la veracidad de los datos. Blindado contra fraudes. 100% Legal RD 742/2013.</p>
-            <a href="mailto:jsghomejsg@gmail.com?subject=Solicitud%20Demo%20Profesional%20Pool%20Control%20Pro" class="btn-main"><i class="fas fa-hand-holding-usd"></i> SOLICITAR DEMO PROFESIONAL</a>
+            <h1>Pool Control Pro v2.0</h1>
+            <p>La plataforma técnica que **garantiza la presencia física** del operario y la veracidad de los datos. 100% Cumplimiento RD 742/2013 sin papeles.</p>
+            <a href="../indice.html" class="btn-main"><i class="fas fa-play-circle"></i> PROBAR DEMO PROFESIONAL</a>
         </div>
     </header>
 
-    <div class="sectors">
+    <section class="sectors">
         <div class="container">
+            <h2>Soluciones adaptadas para los líderes del sector</h2>
             <div class="sectors-grid">
-                <div class="sector-item"><i class="fas fa-building"></i><h4>ADMINISTRADORES</h4></div>
-                <div class="sector-item"><i class="fas fa-hotel"></i><h4>HOTELES & CAMPINGS</h4></div>
-                <div class="sector-item"><i class="fas fa-dumbbell"></i><h4>CENTROS DEPORTIVOS</h4></div>
-                <div class="sector-item"><i class="fas fa-swimmer"></i><h4>EMPRESAS SOCORRISMO</h4></div>
+                <div class="sector-item">
+                    <i class="fas fa-building"></i>
+                    <h4>ADMINISTRADORES</h4>
+                    <p>Garantice la seguridad jurídica de sus comunidades con datos certificados.</p>
+                </div>
+                <div class="sector-item">
+                    <i class="fas fa-hotel"></i>
+                    <h4>HOTELES & CAMPINGS</h4>
+                    <p>Cumpla el protocolo sanitario sin errores humanos ni olvidos.</p>
+                </div>
+                <div class="sector-item">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>CENTROS DEPORTIVOS</h4>
+                    <p>Gestione múltiples vasos de forma centralizada y eficiente.</p>
+                </div>
+                <div class="sector-item">
+                    <i class="fas fa-swimmer"></i>
+                    <h4>EMPRESAS DE SOCORRISMO</h4>
+                    <p>Supervise a sus operarios en tiempo real desde su oficina.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <section id="superpoderes">
         <div class="container">
-            <h2>Blindaje Técnico-Sanitario sin Precedentes</h2>
-            
+            <h2>Blindaje Técnico contra Fraudes</h2>
             <div class="features-grid">
-                
                 <div class="feature-item">
-                    <h3><i class="fas fa-qrcode feature-icon"></i> Validación por QR Pegado</h3>
-                    <p>El operario abre la App escaneando un código QR único pegado en la depuradora. **Garantiza** su presencia física en la instalación, no desde su casa.</p>
+                    <h3><i class="fas fa-qrcode feature-icon"></i> Validación por QR</h3>
+                    <p>Acceso único mediante QR físico pegado en la depuradora. Garantiza que el técnico está físicamente en la instalación.</p>
                 </div>
-
                 <div class="feature-item">
-                    <h3><i class="fas fa-camera-retro feature-icon"></i> Cámara "Anti-Galería"</h3>
-                    <p>La App **solo** permite capturas de cámara en tiempo real. **No hay opción de subir fotos antiguas**. Trazabilidad visual 100% real de la piscina.</p>
                     <div class="tag">SEGURIDAD</div>
+                    <h3><i class="fas fa-camera-retro feature-icon"></i> Cámara en Vivo</h3>
+                    <p>Bloqueamos el acceso a la galería del móvil. La foto del agua debe hacerse en tiempo real: sin trucos ni fotos antiguas.</p>
                 </div>
-
                 <div class="feature-item">
-                    <h3><i class="fas fa-balance-scale-right feature-icon"></i> Custodia Legal 2 Años</h3>
-                    <p>Los datos se acumulan históricamente. Genere el Libro de Registro Oficial Mensual o Completo en segundos ante una inspección de Sanidad.</p>
+                    <h3><i class="fas fa-map-marker-alt feature-icon"></i> Validación GPS</h3>
+                    <p>El sistema cruza el escaneo con la ubicación satelital. Si el operario no está en el sitio, el envío se bloquea automáticamente.</p>
                 </div>
-
                 <div class="feature-item">
-                    <h3><i class="fas fa-bell feature-icon"></i> Notificaciones PDF</h3>
-                    <p>Usted decide la supervisión: reciba el informe técnico oficial detallado en su email a diario, semanalmente o consúltelo en el panel.</p>
+                    <h3><i class="fas fa-file-pdf feature-icon"></i> Reportes PDF</h3>
+                    <p>Histórico legal de 2 años disponible en segundos. Libros de registro mensuales listos para Sanidad con un clic.</p>
                 </div>
-
-                <div class="feature-item">
-                    <h3><i class="fas fa-satellite-dish feature-icon"></i> Validación GPS Pro</h3>
-                    <p>Cruza los datos del escaneo del QR con la ubicación satelital del móvil. Si el operario está lejos de la piscina, el envío se bloquea automáticamente.</p>
-                    <div class="tag">PRO</div>
-                </div>
-
             </div>
         </div>
     </section>
 
     <section id="ahorro">
         <div class="container">
-            <h2>Ahorro Masivo todo el año: Plan Hibernación Pro</h2>
-            <p style="text-align: center; opacity: 0.8; margin-bottom: 50px;">El sistema no descansa en octubre. Úselo para mantenimiento preventivo y evite vaciar la piscina.</p>
-            
+            <h2>Ahorro Masivo todo el año: Plan Hibernación</h2>
+            <p style="text-align: center; opacity: 0.8; margin-bottom: 50px;">Digitalice el mantenimiento preventivo y evite el costoso vaciado de piscinas.</p>
             <div class="savings-grid">
                 <div class="savings-card">
-                    <h4>Hibernación Preventiva Controlada</h4>
+                    <h4>Mantenimiento Preventivo</h4>
                     <ul>
-                        <li><i class="fas fa-tint"></i> El técnico registra pH/Cloro cada 15 días en invierno.</li>
-                        <li><i class="fas fa-tint"></i> Evita que el agua se vuelva verde en primavera.</li>
-                        <li><i class="fas fa-tint"></i> **Ahorro masivo** en químicos de recuperación y multas por vaciado/llenado.</li>
+                        <li><i class="fas fa-check"></i> Registro quincenal en invierno.</li>
+                        <li><i class="fas fa-check"></i> Evita el agua verde y la degradación del vaso.</li>
+                        <li><i class="fas fa-check"></i> Ahorro real en químicos y agua de llenado.</li>
                     </ul>
                 </div>
                 <div class="savings-card">
-                    <h4>Custodia de Datos Histórica (Continuidad Legal)</h4>
+                    <h4>Continuidad Legal</h4>
                     <ul>
-                        <li><i class="fas fa-lock"></i> Mantiene el acceso legal al histórico de datos de 2 años exigido por Sanidad.</li>
-                        <li><i class="fas fa-lock"></i> Trazabilidad total del mantenimiento, esté la piscina abierta o cerrada.</li>
+                        <li><i class="fas fa-lock"></i> Custodia legal de datos durante 24 meses.</li>
+                        <li><i class="fas fa-lock"></i> Trazabilidad total exigida por la normativa.</li>
+                        <li><i class="fas fa-lock"></i> Acceso inmediato ante inspecciones sorpresa.</li>
                     </ul>
-                </div>
-            </div>
-
-            <div class="legal-box">
-                <i class="fas fa-certificate"></i>
-                <div>
-                    <h4>100% CUMPLIMIENTO RD 742/2013</h4>
-                    <p>Este sistema está diseñado por expertos para garantizar la trazabilidad de los protocolos de autocontrol que exige la autoridad sanitaria competente.</p>
                 </div>
             </div>
         </div>
@@ -185,16 +162,13 @@
 
     <footer>
         <div class="container">
-            <h2>Hable con el Soporte Técnico Especializado</h2>
-            <div class="contact-info">
-                <p>Hable con los creadores del sistema para su Centro de Control Pro:</p>
-                <a href="tel:611801528">611 801 528</a>
-            </div>
+            <h2>¿Listo para profesionalizar su gestión?</h2>
+            <p>Atención directa para Administradores y Empresas del sector:</p>
+            <a href="tel:611801528" class="phone">611 801 528</a>
             <div class="contact-details">
-                <p><i class="fas fa-envelope"></i> <a href="mailto:jsghomejsg@gmail.com">jsghomejsg@gmail.com</a></p>
-                <p><i class="fas fa-building"></i> <a href="https://jsghomejsg.github.io/desatascos-urgentes/" target="_blank">jsghomejsg - Soluciones Tecnológicas</a></p>
+                <p><i class="fas fa-envelope"></i> jsghomejsg@gmail.com</p>
+                <p><i class="fas fa-globe"></i> jsghomejsg - Soluciones Tecnológicas</p>
             </div>
-            <p style="margin-top:40px; opacity:0.6; font-size:0.8rem;">&copy; 2026 Pool Control Pro v2.0 | La Evolución Digital de la Trazabilidad</p>
         </div>
     </footer>
 
