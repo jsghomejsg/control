@@ -2,175 +2,180 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>Pool Control Pro v2.0 | Digitalización de Libros de Registro de Piscinas RD 742/2013</title>
-    <meta name="description" content="Digitalice el libro de registro sanitario de piscinas para comunidades, hoteles y socorristas. Trazabilidad total con QR, cámara anti-fraude y reportes PDF.">
-    <meta name="keywords" content="digitalizar libro registro piscinas, control sanitario piscinas hoteles, app socorristas, gestión comunidades propietarios, normativa piscinas 2026, RD 742/2013, mantenimiento preventivo piscinas invierno">
-    <link rel="canonical" href="https://jsghomejsg.github.io/control/presentacion/">
-    
-    <meta property="og:title" content="Pool Control Pro: Blindaje Sanitario de Piscinas">
-    <meta property="og:description" content="Libro de Registro Digital profesional. Adiós al papel, hola a la trazabilidad legal 24/7.">
-    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/3144/3144467.png">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pool Control Pro - Dossier</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
         :root {
-            --primary: #0056b3; --cyan: #00c2ff; --dark: #1a2a3a; --grey: #f4f7f9; --white: #ffffff; --green: #28a745; --orange: #e67e22; --red: #e74c3c;
+            --primary-blue: #0056b3; /* Usando el azul trust de los dossier anteriores */
+            --cyan-accent: #00c2ff;
+            --white: #ffffff;
+            --text-black: #1a2a3a;
+            --tag-red: #e74c3c;
+            --grey-light: #f4f7f9;
         }
 
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; color: var(--dark); line-height: 1.6; scroll-behavior: smooth; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--grey-light); /* Fondo suave */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-        /* Hero Section */
-        header { background: linear-gradient(135deg, var(--primary), var(--cyan)); color: var(--white); padding: 120px 0; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
-        header h1 { font-size: 3.5rem; margin: 0; font-weight: 800; letter-spacing: -1px; }
-        header p { font-size: 1.3rem; opacity: 0.95; margin: 20px auto 40px; max-width: 800px; }
-        
-        .btn-main { background: var(--green); color: var(--white); padding: 18px 35px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4); }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(40, 167, 69, 0.5); }
+        .blindaje-container {
+            background-color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 1000px;
+            padding: 60px;
+            box-sizing: border-box;
+            border-top: 5px solid var(--cyan-accent); /* Barra superior de diseño */
+        }
 
-        /* Sectores - SECCIÓN MEJORADA */
-        .sectors { background: var(--white); padding: 80px 0; border-bottom: 1px solid #eee; text-align: center; }
-        .sectors h2 { color: var(--primary); margin-bottom: 40px; font-size: 2rem; }
-        .sectors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .sector-item { border: 1px solid #eee; border-radius: 15px; padding: 30px; background: var(--white); transition: 0.3s; }
-        .sector-item:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .sector-item i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .sector-item h4 { margin: 10px 0; color: var(--primary); font-size: 1.2rem; }
-        .sector-item p { font-size: 0.9rem; color: #7f8c8d; margin: 0; line-height: 1.4; }
+        .blindaje-title {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 0 0 50px 0;
+            font-weight: 800;
+            position: relative;
+            padding-bottom: 15px;
+        }
 
-        /* Features */
-        section { padding: 100px 0; }
-        section h2 { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 50px; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-item { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid var(--cyan); transition: transform 0.3s; position: relative; overflow: hidden; }
-        .feature-item:hover { transform: translateY(-5px); }
-        .feature-item h3 { color: var(--primary); margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        .feature-item i.feature-icon { font-size: 2rem; color: var(--cyan); }
-        .feature-item p { color: #7f8c8d; font-size: 0.95rem; }
-        .feature-item .tag { background: var(--red); color: white; padding: 5px 40px; font-size: 0.7rem; font-weight: bold; position: absolute; top: 15px; right: -35px; transform: rotate(45deg); }
+        .blindaje-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--cyan-accent);
+            border-radius: 2px;
+        }
 
-        /* Ahorro e Hibernación */
-        #ahorro { background: var(--dark); color: white; padding: 80px 0; border-radius: 30px; margin: 60px 0; }
-        #ahorro h2 { color: white; text-align: center; margin-bottom: 50px; }
-        .savings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .savings-card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid var(--green); border: 1px solid rgba(255,255,255,0.1); }
-        .savings-card h4 { color: var(--green); font-size: 1.4rem; margin: 0 0 15px; }
-        .savings-card ul { padding-left: 20px; color: #cbd5e0; font-size: 0.95rem; }
-        .savings-card ul li { margin-bottom: 8px; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+            grid-template-rows: repeat(2, 1fr); /* 2 filas */
+            gap: 30px;
+        }
 
-        /* Footer */
-        footer { background: var(--dark); color: white; text-align: center; padding: 80px 0; border-top: 1px solid #2c3e50; }
-        .phone { font-size: 2.5rem; color: var(--cyan); text-decoration: none; font-weight: 800; display: block; margin: 20px 0; }
+        .feature-item {
+            background-color: var(--grey-light);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid var(--cyan-accent); /* Barra lateral de diseño */
+        }
 
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            .savings-grid { grid-template-columns: 1fr; }
-            .phone { font-size: 1.8rem; }
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background-color: var(--white);
+            border-color: rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon-container {
+            font-size: 2.5rem;
+            color: var(--cyan-accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        .feature-item p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .tag-security {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background-color: var(--tag-red);
+            color: var(--white);
+            padding: 5px 35px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+        }
+
+        @media (max-width: 900px) {
+            .blindaje-container {
+                width: 90%;
+                padding: 40px 20px;
+            }
+            .blindaje-title {
+                font-size: 2rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr; /* Colapso a 1 columna en móvil */
+                grid-template-rows: auto;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>Pool Control Pro v2.0</h1>
-            <p>La plataforma técnica que **garantiza la presencia física** del operario y la veracidad de los datos. 100% Cumplimiento RD 742/2013 sin papeles.</p>
-            <a href="../indice.html" class="btn-main"><i class="fas fa-play-circle"></i> PROBAR DEMO PROFESIONAL</a>
-        </div>
-    </header>
-
-    <section class="sectors">
-        <div class="container">
-            <h2>Soluciones adaptadas para los líderes del sector</h2>
-            <div class="sectors-grid">
-                <div class="sector-item">
-                    <i class="fas fa-building"></i>
-                    <h4>ADMINISTRADORES</h4>
-                    <p>Garantice la seguridad jurídica de sus comunidades con datos certificados.</p>
-                </div>
-                <div class="sector-item">
-                    <i class="fas fa-hotel"></i>
-                    <h4>HOTELES & CAMPINGS</h4>
-                    <p>Cumpla el protocolo sanitario sin errores humanos ni olvidos.</p>
-                </div>
-                <div class="sector-item">
-                    <i class="fas fa-dumbbell"></i>
-                    <h4>CENTROS DEPORTIVOS</h4>
-                    <p>Gestione múltiples vasos de forma centralizada y eficiente.</p>
-                </div>
-                <div class="sector-item">
-                    <i class="fas fa-swimmer"></i>
-                    <h4>EMPRESAS DE SOCORRISMO</h4>
-                    <p>Supervise a sus operarios en tiempo real desde su oficina.</p>
-                </div>
+    <div class="blindaje-container">
+        <h2 class="blindaje-title">Blindaje Técnico contra Fraudes</h2>
+        
+        <div class="features-grid">
+            
+            <div class="feature-item">
+                <div class="feature-icon-container"><i class="fas fa-qrcode"></i></div>
+                <h3>Validación por QR</h3>
+                <p>Acceso único mediante QR físico pegado en la depuradora. Garantiza que el técnico está físicamente en la instalación.</p>
             </div>
-        </div>
-    </section>
 
-    <section id="superpoderes">
-        <div class="container">
-            <h2>Blindaje Técnico contra Fraudes</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <h3><i class="fas fa-qrcode feature-icon"></i> Validación por QR</h3>
-                    <p>Acceso único mediante QR físico pegado en la depuradora. Garantiza que el técnico está físicamente en la instalación.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="tag">SEGURIDAD</div>
-                    <h3><i class="fas fa-camera-retro feature-icon"></i> Cámara en Vivo</h3>
-                    <p>Bloqueamos el acceso a la galería del móvil. La foto del agua debe hacerse en tiempo real: sin trucos ni fotos antiguas.</p>
-                </div>
-                <div class="feature-item">
-                    <h3><i class="fas fa-map-marker-alt feature-icon"></i> Validación GPS</h3>
-                    <p>El sistema cruza el escaneo con la ubicación satelital. Si el operario no está en el sitio, el envío se bloquea automáticamente.</p>
-                </div>
-                <div class="feature-item">
-                    <h3><i class="fas fa-file-pdf feature-icon"></i> Reportes PDF</h3>
-                    <p>Histórico legal de 2 años disponible en segundos. Libros de registro mensuales listos para Sanidad con un clic.</p>
-                </div>
+            <div class="feature-item">
+                <div class="tag-security">SEGURIDAD</div>
+                <div class="feature-icon-container"><i class="fas fa-camera-retro"></i></div>
+                <h3>Cámara en Vivo</h3>
+                <p>Bloqueamos el acceso a la galería del móvil. La foto del agua debe hacerse en tiempo real: sin trucos ni fotos antiguas.</p>
             </div>
-        </div>
-    </section>
 
-    <section id="ahorro">
-        <div class="container">
-            <h2>Ahorro Masivo todo el año: Plan Hibernación</h2>
-            <p style="text-align: center; opacity: 0.8; margin-bottom: 50px;">Digitalice el mantenimiento preventivo y evite el costoso vaciado de piscinas.</p>
-            <div class="savings-grid">
-                <div class="savings-card">
-                    <h4>Mantenimiento Preventivo</h4>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Registro quincenal en invierno.</li>
-                        <li><i class="fas fa-check"></i> Evita el agua verde y la degradación del vaso.</li>
-                        <li><i class="fas fa-check"></i> Ahorro real en químicos y agua de llenado.</li>
-                    </ul>
-                </div>
-                <div class="savings-card">
-                    <h4>Continuidad Legal</h4>
-                    <ul>
-                        <li><i class="fas fa-lock"></i> Custodia legal de datos durante 24 meses.</li>
-                        <li><i class="fas fa-lock"></i> Trazabilidad total exigida por la normativa.</li>
-                        <li><i class="fas fa-lock"></i> Acceso inmediato ante inspecciones sorpresa.</li>
-                    </ul>
-                </div>
+            <div class="feature-item">
+                <div class="feature-icon-container"><i class="fas fa-location-arrow"></i></div>
+                <h3>Validación GPS</h3>
+                <p>El sistema cruza el escaneo con la ubicación satelital. Si el operario no está en el sitio, el envío se bloquea automáticamente.</p>
             </div>
-        </div>
-    </section>
 
-    <footer>
-        <div class="container">
-            <h2>¿Listo para profesionalizar su gestión?</h2>
-            <p>Atención directa para Administradores y Empresas del sector:</p>
-            <a href="tel:611801528" class="phone">611 801 528</a>
-            <div class="contact-details">
-                <p><i class="fas fa-envelope"></i> jsghomejsg@gmail.com</p>
-                <p><i class="fas fa-globe"></i> jsghomejsg - Soluciones Tecnológicas</p>
+            <div class="feature-item">
+                <div class="feature-icon-container"><i class="fas fa-file-pdf"></i></div>
+                <h3>Reportes PDF</h3>
+                <p>Histórico legal de 2 años disponible en segundos. Libros de registro mensuales listos para Sanidad con un clic.</p>
             </div>
+
+            <div class="feature-item">
+                <div class="feature-icon-container"><i class="fas fa-microscope"></i></div>
+                <h3>Alertas de Parámetros Críticos</h3>
+                <p>Notificaciones instantáneas al administrador si el cloro o el pH están fuera del rango legal, garantizando la seguridad de los usuarios.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon-container"><i class="fas fa-wrench"></i></div>
+                <h3>Registro de Incidencias Técnicas</h3>
+                <p>Un canal directo para que el operario reporte averías o problemas técnicos con evidencia fotográfica, acelerando las reparaciones.</p>
+            </div>
+
         </div>
-    </footer>
+    </div>
 
 </body>
 </html>
